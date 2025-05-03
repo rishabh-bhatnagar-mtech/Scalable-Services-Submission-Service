@@ -14,7 +14,6 @@ conf = {
 }
 producer = Producer(conf)
 
-
 @app.route('/submissions', methods=['POST'])
 def create_submission():
     data = request.json
@@ -40,7 +39,6 @@ def create_submission():
         "submission_id": submission_id,
         "status": "queued"
     }), 202
-
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

@@ -4,7 +4,7 @@ metadata:
   name: submission-config
   namespace: submission-service
 data:
-  KAFKA_BROKERS: "kafka-0.kafka.submission-service.svc.cluster.local:9092,kafka-1.kafka.submission-service.svc.cluster.local:9092,kafka-2.kafka.submission-service.svc.cluster.local:9092"
+  KAFKA_BROKERS: "kafka.kafka.svc.cluster.local:9092"
   SUBMISSION_TOPIC: "code-submissions"
 ---
 apiVersion: apps/v1
@@ -13,7 +13,7 @@ metadata:
   name: submission-service
   namespace: submission-service
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: submission-service
