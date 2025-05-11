@@ -6,7 +6,9 @@ metadata:
 data:
   KAFKA_BROKERS: "kafka.kafka.svc.cluster.local:9092"
   SUBMISSION_TOPIC: "code-submissions"
+
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -23,14 +25,20 @@ spec:
         app: submission-service
     spec:
       containers:
-      - name: submission-service
-        image: submission-service:0.0.1
-        ports:
-        - containerPort: 5000
-        envFrom:
-        - configMapRef:
-            name: submission-config
+        - name: submission-service
+          image: submission-service:0.0.2
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: submission-config
+            - secretRef:
+                name: postgres-secret
+            - configMapRef:
+                name: postgres-config
+
 ---
+
 apiVersion: v1
 kind: Service
 metadata:
@@ -39,7 +47,7 @@ metadata:
 spec:
   type: LoadBalancer
   ports:
-  - port: 80
-    targetPort: 5000
+    - port: 80
+      targetPort: 5000
   selector:
     app: submission-service
