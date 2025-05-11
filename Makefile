@@ -1,8 +1,8 @@
 build_submission_image:
-	docker build -t submission-service:0.0.2 . -f deployments/Dockerfile
+	docker build -t submission-service:0.0.2 . -f deployments/Dockerfile --quiet
 
 build_consumer_image:
-	docker build -t consumer-service:0.0.3 . -f deployments/consumer.Dockerfile
+	docker build -t consumer-service:0.0.3 . -f deployments/consumer.Dockerfile --quiet
 
 delete_prev_deployment:
 	kubectl delete deployment submission-service -n submission-service || true
